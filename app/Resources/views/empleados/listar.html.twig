@@ -1,0 +1,35 @@
+{% extends 'navegacion.html.twig' %}
+
+{% block title %}
+
+    Empleados Listar
+
+{% endblock %}
+
+
+
+{% block content %}
+        <h1 class="text-center text-danger">Listado de Empleados</h1>
+        <table class="table table-bordered table-striped text-center mb-5 mt-5">
+            <thead class="bg-danger text-light">
+            <tr>
+                <td>Nombre</td>
+                <td>Apellidos</td>
+                <td>D.N.I</td>
+                <td>Email</td>
+            </tr>
+            </thead>
+            <tbody>
+            {% for empleado in empleados %}
+                <tr>
+                    <td>{{ acceso.nombre }}</td>
+                    <td>{{ acceso.apellidos}}</td>
+                    <td>{{ acceso.dni}}</td>
+                    <td>{{ acceso.email}}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+{% endblock %}
+
