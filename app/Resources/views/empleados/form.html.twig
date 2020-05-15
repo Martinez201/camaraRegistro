@@ -1,0 +1,35 @@
+{% extends 'navegacion.html.twig' %}
+
+{% block content %}
+
+    <h1 class="text-center text-danger">
+        {% if empleado.id %}
+            Empleado {{ empleado.id }}
+        {% else %}
+            Alta Empleado
+        {% endif %}
+    </h1>
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+    <p class="mt-5">
+    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Guardar</button>
+    {% if not empleado.id %}
+        <button type="reset" class="btn btn-warning"><i class="fa fa-broom"></i> Limpiar</button>
+    {% else %}
+        <a href="{{ path('empleados_eliminar',{'id': empleado.id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i> Borrar</a>
+    {% endif %}
+    <a href="{{ path('empleados_listar') }}" class="btn btn-info"><i class="fa fa-arrow-alt-circle-left"></i> Volver al listado</a>
+    </p>
+    {{ form_end(form) }}
+
+
+{% endblock %}
+
+{% block title %}
+
+    Alta Empleado
+
+{% endblock %}
+

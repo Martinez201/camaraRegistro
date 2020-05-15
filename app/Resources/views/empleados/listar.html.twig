@@ -10,6 +10,9 @@
 
 {% block content %}
         <h1 class="text-center text-danger">Listado de Empleados</h1>
+
+        <a href="{{ path('empleados_altas') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> Añadir Empleado</a>
+
         <table class="table table-bordered table-striped text-center mb-5 mt-5">
             <thead class="bg-danger text-light">
             <tr>
@@ -22,10 +25,10 @@
             <tbody>
             {% for empleado in empleados %}
                 <tr>
-                    <td>{{ acceso.nombre }}</td>
-                    <td>{{ acceso.apellidos}}</td>
-                    <td>{{ acceso.dni}}</td>
-                    <td>{{ acceso.email}}</td>
+                    <td><a href="{{ path('empleados_form',{'id': empleado.id}) }}">{{ empleado.nombre }}</a></td>
+                    <td>{{ empleado.apellidos}}</td>
+                    <td>{{ empleado.dni}}</td>
+                    <td>{{ empleado.email}}</td>
                 </tr>
             {% endfor %}
             </tbody>
