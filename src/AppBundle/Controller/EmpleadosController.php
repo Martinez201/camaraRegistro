@@ -56,12 +56,12 @@ class EmpleadosController extends Controller
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
-
+                $this->addFlash('success','Los cambios han sido guardados con éxito');
                 return $this->redirectToRoute('empleados_listar');
 
             }catch (\Exception $ex){
 
-
+                $this->addFlash('error','Error: No se a podido guardar los cambios');
             }
 
         }
@@ -88,13 +88,13 @@ class EmpleadosController extends Controller
                 $cli = $this->getDoctrine()->getManager();
                 $cli->remove($empleados);
                 $cli->flush();
-
+                $this->addFlash('success','Los cambios han sido guardados con éxito');
                 return $this->redirectToRoute('empleados_listar');
 
             }catch (\Exception $ex){
 
             }
-
+            $this->addFlash('error','Error: No se a podido guardar los cambios');
         }
 
         return $this->render('empleados/eliminar.html.twig',[
