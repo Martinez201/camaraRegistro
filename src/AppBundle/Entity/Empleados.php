@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Usuarios;
 
 /**
  * @ORM\Entity
@@ -37,7 +38,7 @@ class Empleados
      * @var string
      */
     private $email;
-
+////////////////////////////////////////////////////////////
 
     /**
      * @ORM\OneToMany(targetEntity="Accesos",mappedBy="empleado")
@@ -45,8 +46,14 @@ class Empleados
      */
     private $accesos;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Usuarios",mappedBy="empleado")
+     * @var Usuarios
+     */
+    private $usuario;
 
 
+////////////////////////////////////////////////////////////////////////
     /**
      * @return string
      */
@@ -142,6 +149,24 @@ class Empleados
     public function setAccesos($accesos)
     {
         $this->accesos = $accesos;
+        return $this;
+    }
+
+    /**
+     * @return \AppBundle\Entity\Usuarios
+     */
+    public function getUsuario()
+    {
+        return $this->usuario;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Usuarios $usuario
+     * @return Empleados
+     */
+    public function setUsuario($usuario)
+    {
+        $this->usuario = $usuario;
         return $this;
     }
 

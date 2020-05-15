@@ -1,6 +1,8 @@
 <?php
 
+namespace AppBundle\Entity;
 
+use AppBundle\Entity\Empleados;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,107 +18,17 @@ class Usuarios
      */
     private $id;
     /**
-     * @ORM\Column(type="string")
-     * @var string
-     */
-    private $nombre;
-    /**
-     * @ORM\Column(type="string")
-     * @var string
-     */
-    private $apellidos;
-    /**
-     * @ORM\Column(type="string")
-     * @var string
-     */
-    private $email;
-    /**
-     * @ORM\Column(type="string")
-     * @var string
-     */
-    private $telefono;
-    /**
      * @ORM\Column(type="boolean")
      * @var bool
      */
     private $administrador;
 
-
-
-
-
-
     /**
-     * @return string
+     * @ORM\OneToOne(targetEntity="Empleados", inversedBy="usuario")
+     * @var Empleados
      */
-    public function getNombre()
-    {
-        return $this->nombre;
-    }
+    private $empleado;
 
-    /**
-     * @param string $nombre
-     * @return Usuarios
-     */
-    public function setNombre($nombre)
-    {
-        $this->nombre = $nombre;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getApellidos()
-    {
-        return $this->apellidos;
-    }
-
-    /**
-     * @param string $apellidos
-     * @return Usuarios
-     */
-    public function setApellidos($apellidos)
-    {
-        $this->apellidos = $apellidos;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * @param string $email
-     * @return Usuarios
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTelefono()
-    {
-        return $this->telefono;
-    }
-
-    /**
-     * @param string $telefono
-     * @return Usuarios
-     */
-    public function setTelefono($telefono)
-    {
-        $this->telefono = $telefono;
-        return $this;
-    }
 
     /**
      * @return bool
@@ -142,6 +54,24 @@ class Usuarios
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return \AppBundle\Entity\Empleados
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
+    }
+
+    /**
+     * @param \AppBundle\Entity\Empleados $empleado
+     * @return Usuarios
+     */
+    public function setEmpleado($empleado)
+    {
+        $this->empleado = $empleado;
+        return $this;
     }
 
 
