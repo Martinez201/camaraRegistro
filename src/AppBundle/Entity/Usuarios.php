@@ -15,6 +15,7 @@ class Usuarios
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
     /**
@@ -49,12 +50,14 @@ class Usuarios
     }
 
     /**
-     * @return mixed
+     * @return int
      */
     public function getId()
     {
         return $this->id;
     }
+
+
 
     /**
      * @return \AppBundle\Entity\Empleados
