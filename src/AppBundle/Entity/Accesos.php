@@ -24,36 +24,37 @@ class Accesos
      */
     private $fecha;
     /**
-     * @ORM\Column(type="time" ,nullable= true)
+     * @ORM\Column(type="datetime" ,nullable= true)
      * @var \DateTime
      */
     private $horaEntrada;
     /**
-     * @ORM\Column(type="time" ,nullable= true)
+     * @ORM\Column(type="datetime" ,nullable= true)
      * @var \DateTime
      */
     private $horaSalida;
     /**
-     * @ORM\Column(type="time" ,nullable= true)
+     * @ORM\Column(type="datetime" ,nullable= true)
      * @var \DateTime
      */
     private $horaEntradaTarde;
     /**
-     * @ORM\Column(type="time" ,nullable= true)
+     * @ORM\Column(type="datetime" ,nullable= true)
      * @var \DateTime
      */
     private $horaSalidaTarde;
 
 
-
-
-
-
+    /**
+     * @ORM\ManyToOne(targetEntity="Empleados", inversedBy="accesos")
+     * @var Empleados
+     */
+    private $empleado;
 
 
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getFecha()
     {
@@ -61,7 +62,7 @@ class Accesos
     }
 
     /**
-     * @param DateTime $fecha
+     * @param \DateTime $fecha
      * @return accesos
      */
     public function setFecha($fecha)
@@ -71,7 +72,7 @@ class Accesos
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getHoraEntrada()
     {
@@ -79,7 +80,7 @@ class Accesos
     }
 
     /**
-     * @param DateTime $horaEntrada
+     * @param \DateTime $horaEntrada
      * @return accesos
      */
     public function setHoraEntrada($horaEntrada)
@@ -89,7 +90,7 @@ class Accesos
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getHoraSalida()
     {
@@ -97,7 +98,7 @@ class Accesos
     }
 
     /**
-     * @param DateTime $horaSalida
+     * @param \DateTime $horaSalida
      * @return accesos
      */
     public function setHoraSalida($horaSalida)
@@ -107,7 +108,7 @@ class Accesos
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getHoraEntradaTarde()
     {
@@ -115,7 +116,7 @@ class Accesos
     }
 
     /**
-     * @param DateTime $horaEntradaTarde
+     * @param \DateTime $horaEntradaTarde
      * @return accesos
      */
     public function setHoraEntradaTarde($horaEntradaTarde)
@@ -125,7 +126,7 @@ class Accesos
     }
 
     /**
-     * @return DateTime
+     * @return \DateTime
      */
     public function getHoraSalidaTarde()
     {
@@ -133,7 +134,7 @@ class Accesos
     }
 
     /**
-     * @param DateTime $horaSalidaTarde
+     * @param \DateTime $horaSalidaTarde
      * @return accesos
      */
     public function setHoraSalidaTarde($horaSalidaTarde)
@@ -148,6 +149,24 @@ class Accesos
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Empleados
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
+    }
+
+    /**
+     * @param Empleados $empleado
+     * @return Accesos
+     */
+    public function setEmpleado($empleado)
+    {
+        $this->empleado = $empleado;
+        return $this;
     }
 
 

@@ -39,7 +39,11 @@ class Empleados
     private $email;
 
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="Accesos",mappedBy="empleado")
+     * @var Accesos
+     */
+    private $accesos;
 
 
 
@@ -121,6 +125,24 @@ class Empleados
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * @return Accesos
+     */
+    public function getAccesos()
+    {
+        return $this->accesos;
+    }
+
+    /**
+     * @param Accesos $accesos
+     * @return Empleados
+     */
+    public function setAccesos($accesos)
+    {
+        $this->accesos = $accesos;
+        return $this;
     }
 
 
