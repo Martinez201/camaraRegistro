@@ -24,22 +24,22 @@ class Accesos
      */
     private $fecha;
     /**
-     * @ORM\Column(type="datetime" ,nullable= true)
+     * @ORM\Column(type="time" ,nullable= true)
      * @var \DateTime
      */
     private $horaEntrada;
     /**
-     * @ORM\Column(type="datetime" ,nullable= true)
+     * @ORM\Column(type="time" ,nullable= true)
      * @var \DateTime
      */
     private $horaSalida;
     /**
-     * @ORM\Column(type="datetime" ,nullable= true)
+     * @ORM\Column(type="time" ,nullable= true)
      * @var \DateTime
      */
     private $horaEntradaTarde;
     /**
-     * @ORM\Column(type="datetime" ,nullable= true)
+     * @ORM\Column(type="time" ,nullable= true)
      * @var \DateTime
      */
     private $horaSalidaTarde;

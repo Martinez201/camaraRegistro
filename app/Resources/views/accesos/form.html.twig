@@ -1,0 +1,22 @@
+{% extends 'navegacion.html.twig' %}
+
+{% block content %}
+
+<h1 class="text-center text-danger">
+    Fichar
+</h1>
+
+{{ form_start(form) }}
+{{ form_widget(form) }}
+    <p>
+        <button type="submit" id="btMananaEntrada" name="mananaEntrada"><img src="{{ asset('img/entrada_verde.png') }}" alt=""></button>
+        <button type="submit" id="btMananaSalida" name="mananaSalida"><img src="{{ asset('img/salida.png') }}" alt=""></button>
+    </p>
+    <p>
+        <button type="submit" id="btTardeEntrada" name="tardeEntrada"><img src="{{ asset('img/entrada_verde.png') }}" alt=""></button>
+        <button type="submit" id="btTardeSalida" name="tardeSalida"><img src="{{ asset('img/salida.png') }}" alt=""></button>
+    </p>
+
+{{ form_end(form) }}
+
+{% endblock %}

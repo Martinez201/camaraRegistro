@@ -22,5 +22,15 @@ class EmpleadosRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function obtenerEmpleadoDni($dni){
+
+        return $this->createQueryBuilder('e')
+            ->where('e.dni = :dni')
+            ->setParameter('dni',$dni)
+            ->getQuery()
+            ->getResult();
+    }
+
+
 
 }
