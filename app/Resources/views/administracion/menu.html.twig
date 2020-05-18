@@ -1,0 +1,69 @@
+{%  extends 'navegacion.html.twig' %}
+
+
+{% block content %}
+<div class="box">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                <div class="box-part text-center">
+
+                    <i class="fas fa-user-friends fa-3x" aria-hidden="true"></i>
+
+                    <div class="title">
+                        <h4>Empleados</h4>
+                    </div>
+
+                    <div class="text">
+                        <span>Administración de los empleados</span>
+                    </div>
+
+                    <a href="{{ path('empleados_listar') }}" class="btn btn-danger">ir a empleados</a>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                <div class="box-part text-center">
+
+                    <i class="fas fa-users fa-3x" aria-hidden="true"></i>
+
+                    <div class="title">
+                        <h4>Usuarios</h4>
+                    </div>
+
+                    <div class="text">
+                        <span>Administración de los Usuarios</span>
+                    </div>
+
+                    <a href="{{ path('usuarios_listar') }}" class="btn btn-danger">Ir a usuarios</a>
+
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                <div class="box-part text-center">
+
+                    <i class="fas fa-file-pdf fa-3x" aria-hidden="true"></i>
+
+                    <div class="title">
+                        <h4>Informes</h4>
+                    </div>
+
+                    <div class="text">
+                        <span>Generar informes de accesos</span>
+                    </div>
+
+                    <a href="{{ path('usuarios_listar') }}" class="btn btn-danger">Ir a informes</a>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
