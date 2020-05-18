@@ -55,4 +55,32 @@ class AccesosRepositoy extends ServiceEntityRepository
 
     }
 
+    public function obtenerSalida($fecha,$empleado){
+
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->Where('a.fecha = :fecha')
+            ->andWhere('a.empleado = :empleado')
+            ->setParameter('empleado', $empleado)
+            ->setParameter('fecha',$fecha)
+            ->andWhere('a.horaSalida IS NOT NULL ')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+    }
+
+    public function obtenerSalidaTarde($fecha,$empleado){
+
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->Where('a.fecha = :fecha')
+            ->andWhere('a.empleado = :empleado')
+            ->setParameter('empleado', $empleado)
+            ->setParameter('fecha',$fecha)
+            ->andWhere('a.horaSalidaTarde IS NOT NULL ')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+    }
+
 }

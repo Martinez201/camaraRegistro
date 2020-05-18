@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class AccesosController extends Controller
 {
     /**
-     * @Route("\fichar",name="alta_fichar_manana", methods={"GET","POST"})
+     * @Route("\fichar",name="alta_fichar", methods={"GET","POST"})
      */
 
     public function formAction(Request $request, AccesosRepositoy $accesosRepositoy, EmpleadosRepository $empleadosRepository){
@@ -56,7 +56,36 @@ class AccesosController extends Controller
 
                 }
                 if(isset($_POST['mananaSalida'])){
-                    dump("prueba2");
+
+                    if($usuario){
+
+                        $acceso = $accesosRepositoy->obtenerAcceso($fecha,$usuario);
+
+                        if($acceso == 0){
+
+                             $this->addFlash('error','Error: no has fichado la entrada');
+
+                        }else{
+
+                            $hafichado = $accesosRepositoy->obtenerSalida($fecha,$usuario);
+                            dump($hafichado);
+
+                            if($hafichado == 1){
+
+                                $this->addFlash('error','Error: Ya has fichado la salida en el turno de mañana');
+                            }
+                            else{
+
+                                $resultado = $accesosRepositoy->obtenerTurnoTarde($fecha,$usuario);
+                                $resultado->setHoraSalida(date_create(date('H:i:s')));
+                                $em = $this->getDoctrine()->getManager();
+                                $em->flush();
+                                $this->addFlash('success','Salida registrada con éxito');
+                            }
+
+                        }
+                    }
+
                 }
                 if(isset($_POST['tardeEntrada'])){
 
@@ -95,7 +124,36 @@ class AccesosController extends Controller
 
                 }
                 if(isset($_POST['tardeSalida'])){
-                    dump("prueba4");
+
+                    if($usuario){
+
+                        $acceso = $accesosRepositoy->obtenerAcceso($fecha,$usuario);
+
+                        if($acceso == 0){
+
+                            $this->addFlash('error','Error: no has fichado la entrada');
+
+                        }
+                        else{
+
+                            $hafichado = $accesosRepositoy->obtenerSalidaTarde($fecha,$usuario);
+
+                            if($hafichado == 1){
+
+                                $this->addFlash('error','Error: Ya has fichado la salida en el turno de tarde');
+                            }
+                            else{
+
+                                $resultado = $accesosRepositoy->obtenerTurnoTarde($fecha,$usuario);
+                                $resultado->setHoraSalidaTarde(date_create(date('H:i:s')));
+                                $em = $this->getDoctrine()->getManager();
+                                $em->flush();
+                                $this->addFlash('success','Salida registrada con éxito');
+                            }
+
+                        }
+                    }
+
                 }
             }
             else{
