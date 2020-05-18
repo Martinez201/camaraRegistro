@@ -13,11 +13,17 @@ class EmpleadosRepository extends ServiceEntityRepository
         parent::__construct($registry, Empleados::class);
     }
 
-    public function obtenerEmpleadosOrdenados(){
+    public function obtenerEmpleadosOrdenadosQueryBuilder(){
 
         return $this->createQueryBuilder('em')
             ->orderBy('em.nombre')
-            ->addOrderBy('em.apellidos')
+            ->addOrderBy('em.apellidos');
+
+    }
+
+    public function obtenerEmpleadosOrdenados(){
+
+        return $this->obtenerEmpleadosOrdenadosQueryBuilder()
             ->getQuery()
             ->getResult();
     }

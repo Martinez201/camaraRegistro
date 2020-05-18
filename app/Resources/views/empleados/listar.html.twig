@@ -23,7 +23,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for empleado in empleados %}
+            {% for empleado in paginador.currentPageResults %}
                 <tr>
                     <td><a href="{{ path('empleados_form',{'id': empleado.id}) }}">{{ empleado.nombre }}</a></td>
                     <td>{{ empleado.apellidos}}</td>
@@ -34,5 +34,8 @@
             </tbody>
         </table>
 
+    {% if paginador and paginador.haveToPaginate %}
+        {{ pagerfanta(paginador,'twitter_bootstrap4') }}
+    {% endif %}
 {% endblock %}
 

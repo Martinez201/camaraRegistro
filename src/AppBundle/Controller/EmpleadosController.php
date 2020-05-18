@@ -7,6 +7,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Empleados;
 use AppBundle\Form\Type\EmpleadoType;
 use AppBundle\Repository\EmpleadosRepository;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,22 +18,37 @@ class EmpleadosController extends Controller
 {
 
     /**
-     * @Route("/empleados", name="empleados_listar")
+     * @Route("/empleados/{page}", name="empleados_listar")
      */
 
-    public function empleadosAction(EmpleadosRepository $empleadosRepository){
+    public function empleadosAction(EmpleadosRepository $empleadosRepository, $page = 1){
 
-        $empleados = $empleadosRepository->obtenerEmpleadosOrdenados();
+        $empleados = $empleadosRepository->obtenerEmpleadosOrdenadosQueryBuilder();
+        $adaptador = new DoctrineORMAdapter($empleados,false);
+        $pager = new Pagerfanta($adaptador);
+
+        try {
+
+            $pager
+                ->setMaxPerPage(10)
+                ->setCurrentPage($page);
+
+        }catch (OutOfRangeCurrentPageException $ex){
+
+            $pager->setCurrentPage(1);
+
+        }
 
         return $this->render('empleados/listar.html.twig',[
 
-            'empleados'=> $empleados
+            'empleados'=> $empleados,
+            'paginador' => $pager
         ]);
 
     }
 
     /**
-     * @Route("/empleados/alta", name="empleados_altas", methods={"GET","POST"})
+     * @Route("/empleado/alta", name="empleados_altas", methods={"GET","POST"})
      */
     public function nuevaAction(Request $request){
 
