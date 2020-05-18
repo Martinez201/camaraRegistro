@@ -4,12 +4,13 @@ namespace AppBundle\Entity;
 
 use AppBundle\Entity\Empleados;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="usuarios")
  */
-class Usuarios
+class Usuarios implements UserInterface
 {
     /**
      * @ORM\Id
@@ -127,6 +128,30 @@ class Usuarios
         return $this;
     }
 
+    public function getRoles()
+    {
+        // TODO: Implement getRoles() method.
+    }
+
+    public function getPassword()
+    {
+        return $this->getClave();
+    }
+
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    public function getUsername()
+    {
+        return $this->getNombreUsuario();
+    }
+
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
 
 
 }
