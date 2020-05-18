@@ -12,7 +12,7 @@ class LoadFixtures implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $objects = Fixtures::Load(__DIR__.'fixtures.yml',$manager);
+        $objects = Fixtures::Load(__DIR__.'/fixtures.yml',$manager);
     }
 
 }
