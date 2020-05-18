@@ -185,7 +185,8 @@ class AccesosController extends Controller
 
         return $this->render('accesos/form.html.twig',[
 
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'hora' => date('H:i:s')
         ]);
     }
 

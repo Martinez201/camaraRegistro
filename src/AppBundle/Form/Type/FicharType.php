@@ -18,7 +18,8 @@ class FicharType extends AbstractType
         $builder
             ->add('dni',TextType::class,[
 
-                'label'=> 'D.N.I:'
+                'label'=> 'D.N.I',
+                'data'=> 'Inserte su D.N.I'
             ]);
     }
 

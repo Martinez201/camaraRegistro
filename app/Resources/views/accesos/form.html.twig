@@ -2,21 +2,32 @@
 
 {% block content %}
 
-<h1 class="text-center text-danger">
+<h1 class="text-center text-danger mb-5">
     Fichar
 </h1>
 
 {{ form_start(form) }}
+    <p class="mt-5 mb-5 text-danger text-center"> Inserte su D.N.I en el cuadro de texto y a continuación pulse el botón correspondiente (Verde marca la entrada y Rojo la salida)</p>
 {{ form_widget(form) }}
-    <p>
-        <button type="submit" id="btMananaEntrada" name="mananaEntrada"><img src="{{ asset('img/entrada_verde.png') }}" alt=""></button>
-        <button type="submit" id="btMananaSalida" name="mananaSalida"><img src="{{ asset('img/salida.png') }}" alt=""></button>
-    </p>
-    <p>
-        <button type="submit" id="btTardeEntrada" name="tardeEntrada"><img src="{{ asset('img/entrada_verde.png') }}" alt=""></button>
-        <button type="submit" id="btTardeSalida" name="tardeSalida"><img src="{{ asset('img/salida.png') }}" alt=""></button>
-    </p>
 
+    {% if hora > '08:00:00' and hora < '15:30:00' %}
+    <h2 class="text-center text-danger mt-5">
+        Turno Mañana
+    </h2>
+    <p class="mb-5 text-center">
+        <button type="submit" id="btMananaEntrada" name="mananaEntrada" class="btn btn-light mt-5"><img src="{{ asset('img/entrada_verde.png') }}" alt=""></button>
+        <button type="submit" id="btMananaSalida" name="mananaSalida" class="btn btn-light mt-5" ><img src="{{ asset('img/salida.png') }}" alt=""></button>
+    </p>
+    {% endif %}
+    {% if hora > '17:00:00' and hora < '22:00:00' %}
+    <h2 class="text-center text-danger mt-5">
+        Turno Tarde
+    </h2>
+    <p class="text-center">
+        <button type="submit" id="btTardeEntrada" name="tardeEntrada" class="btn btn-light mt-5"><img src="{{ asset('img/entrada_verde.png') }}" alt=""></button>
+        <button type="submit" id="btTardeSalida" name="tardeSalida" class="btn btn-light mt-5"><img src="{{ asset('img/salida.png') }}" alt=""></button>
+    </p>
+    {% endif %}
 {{ form_end(form) }}
 
 {% endblock %}
