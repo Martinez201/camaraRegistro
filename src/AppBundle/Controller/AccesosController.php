@@ -14,6 +14,23 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AccesosController extends Controller
 {
+
+    /**
+     * @Route("/accesos", name="accesos_listar")
+     */
+    public function accesosAction(AccesosRepositoy  $accesosRepositoy){
+
+        $accesos = $accesosRepositoy->obtenerTodosAccesos();
+
+        return $this->render('accesos/listar.html.twig',[
+
+            'accesos'=> $accesos
+
+        ]);
+
+    }
+
+
     /**
      * @Route("\fichar",name="alta_fichar", methods={"GET","POST"})
      */

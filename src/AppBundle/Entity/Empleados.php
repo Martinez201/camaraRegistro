@@ -170,7 +170,10 @@ class Empleados
         return $this;
     }
 
-
+    public function __toString()
+    {
+       return $this->getNombre()." ".$this->getApellidos();
+    }
 
 
 }

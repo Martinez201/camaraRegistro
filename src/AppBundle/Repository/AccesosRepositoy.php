@@ -17,6 +17,15 @@ class AccesosRepositoy extends ServiceEntityRepository
         parent::__construct($registry, Accesos::class);
     }
 
+    public function obtenerTodosAccesos(){
+
+        return $this->createQueryBuilder('ac')
+            ->orderBy('ac.fecha')
+            ->getQuery()
+            ->getResult();
+
+    }
+
     public function obtenerAcceso($fecha,$empleado){
 
         return $this->createQueryBuilder('a')

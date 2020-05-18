@@ -1,0 +1,39 @@
+{% extends 'navegacion.html.twig' %}
+
+{% block content %}
+
+    <h1 class="text-danger text-center">Listado de Accesos</h1>
+
+    <table class=" table table-bordered table-striped text-center mb-5 mt-5">
+        <thead class="bg-danger text-light">
+            <tr>
+                <td>Empleado</td>
+                <td>Fecha</td>
+                <td>Entrada (Mañana)</td>
+                <td>Salida (Mañana)</td>
+                <td>Entrada (Tarde)</td>
+                <td>Salida (Tarde)</td>
+            </tr>
+        </thead>
+        <tbody>
+            {% for acceso in accesos %}
+                <tr>
+                    <td>{{ acceso.empleado }}</td>
+                    <td>{{ acceso.fecha|date('Y-m-d') }}</td>
+                    <td{% if not acceso.horaEntrada %} class="bg-warning"{% endif %}>{% if not acceso.horaEntrada %}--------{% else %}{{ acceso.horaEntrada|date('h:i:s')}}{% endif %}</td>
+                    <td{% if not acceso.horaSalida %} class="bg-warning"{% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('h:i:s')}}{% endif %}</td>
+                    <td{% if not acceso.horaEntradaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('h:i:s')}}{% endif %}</td>
+                    <td{% if not acceso.horaSalidaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaSalidaTarde %}--------{% else %}{{ acceso.horaSalidaTarde|date('h:i:s')}}{% endif %}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
+
+{% block title %}
+
+    Listado de Accesos
+
+{% endblock %}
