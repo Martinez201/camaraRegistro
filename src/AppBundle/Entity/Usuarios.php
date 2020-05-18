@@ -23,6 +23,19 @@ class Usuarios
      * @var bool
      */
     private $administrador;
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $nombreUsuario;
+
+    /**
+     * @ORM\Column(type="string")
+     * @var string
+     */
+    private $clave;
+
+    ///////////////////////////////////////
 
     /**
      * @ORM\OneToOne(targetEntity="Empleados", inversedBy="usuario")
@@ -30,6 +43,7 @@ class Usuarios
      */
     private $empleado;
 
+////////////////////////////////////////////////////
 
     /**
      * @return bool
@@ -76,6 +90,43 @@ class Usuarios
         $this->empleado = $empleado;
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getNombreUsuario()
+    {
+        return $this->nombreUsuario;
+    }
+
+    /**
+     * @param string $nombreUsuario
+     * @return Usuarios
+     */
+    public function setNombreUsuario($nombreUsuario)
+    {
+        $this->nombreUsuario = $nombreUsuario;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClave()
+    {
+        return $this->clave;
+    }
+
+    /**
+     * @param string $clave
+     * @return Usuarios
+     */
+    public function setClave($clave)
+    {
+        $this->clave = $clave;
+        return $this;
+    }
+
 
 
 }
