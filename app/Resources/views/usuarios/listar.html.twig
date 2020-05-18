@@ -11,6 +11,8 @@
 {% block content %}
     <h1 class="text-center text-danger">Listado de Empleados</h1>
 
+    <a href="{{ path('usuario_altas') }}" class="btn btn-success"><i class="fa fa-plus-circle"></i> Añadir Usuario</a>
+
     <table class="table table-bordered table-striped text-center mb-5 mt-5">
         <thead class="bg-danger text-light">
         <tr>
@@ -22,9 +24,9 @@
         <tbody>
         {% for usuario in usuarios %}
             <tr>
-                <td>{{ usuario.id }}</td>
+                <td><a href="{{ path('usuario_form',{'id': usuario.id}) }}">{{ usuario.id }}</a></td>
                 <td>{{ usuario.empleado}}</td>
-                <td>{% if not usuario.administrador %} Usuario {% else %} {{ usuario.administrador}}Administrador {% endif %}</td>
+                <td>{% if not usuario.administrador %} Usuario {% else %}Administrador {% endif %}</td>
             </tr>
         {% endfor %}
         </tbody>
