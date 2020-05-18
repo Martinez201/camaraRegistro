@@ -17,6 +17,11 @@
                     <li class="nav-item"><a href="{{ path('accesos_listar') }}" class="nav-link text-danger">Accesos</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-danger" >Informes</a></li>
                     <li class="nav-item"><a href="#" class="nav-link text-danger">Administración</a></li>
+                    {%  if app.user %}
+                         <li class="btn btn-danger ml-5"><a href="{{ path('usuario_salir') }}" class="nav-link text-light">Salir</a></li>
+                    {% else %}
+                        <li class="btn btn-danger ml-5"><a href="{{ path('usuario_entrar') }}" class="nav-link text-light">Entrar</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
