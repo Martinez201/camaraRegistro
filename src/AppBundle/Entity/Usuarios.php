@@ -130,7 +130,18 @@ class Usuarios implements UserInterface
 
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        $roles = ['ROLE_USER'];
+
+        if($this->isAdministrador()){
+
+            $roles[] = 'ROLE_ADMINISTRADOR';
+        }
+        else{
+
+            $roles[] = 'ROLE_USUARIO';
+        }
+
+        return $roles;
     }
 
     public function getPassword()
