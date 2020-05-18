@@ -1,0 +1,34 @@
+{% extends 'navegacion.html.twig' %}
+
+{% block title %}
+
+    Empleados Listar
+
+{% endblock %}
+
+
+
+{% block content %}
+    <h1 class="text-center text-danger">Listado de Empleados</h1>
+
+    <table class="table table-bordered table-striped text-center mb-5 mt-5">
+        <thead class="bg-danger text-light">
+        <tr>
+            <td>ID</td>
+            <td>Empleado</td>
+            <td>Tipo Usuario</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for usuario in usuarios %}
+            <tr>
+                <td>{{ usuario.id }}</td>
+                <td>{{ usuario.empleado}}</td>
+                <td>{% if not usuario.administrador %} Usuario {% else %} {{ usuario.administrador}}Administrador {% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
+
