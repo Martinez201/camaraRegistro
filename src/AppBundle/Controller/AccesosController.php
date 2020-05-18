@@ -32,7 +32,7 @@ class AccesosController extends Controller
 
 
     /**
-     * @Route("\fichar",name="alta_fichar", methods={"GET","POST"})
+     * @Route("/fichar",name="alta_fichar", methods={"GET","POST"})
      */
 
     public function formAction(Request $request, AccesosRepositoy $accesosRepositoy, EmpleadosRepository $empleadosRepository){
