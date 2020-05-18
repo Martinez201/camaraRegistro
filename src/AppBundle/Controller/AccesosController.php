@@ -8,6 +8,9 @@ use AppBundle\Entity\Accesos;
 use AppBundle\Form\Type\FicharType;
 use AppBundle\Repository\AccesosRepositoy;
 use AppBundle\Repository\EmpleadosRepository;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,15 +19,30 @@ class AccesosController extends Controller
 {
 
     /**
-     * @Route("/accesos", name="accesos_listar")
+     * @Route("/accesos/{page}", name="accesos_listar")
      */
-    public function accesosAction(AccesosRepositoy  $accesosRepositoy){
+    public function accesosAction(AccesosRepositoy  $accesosRepositoy,$page = 1){
 
-        $accesos = $accesosRepositoy->obtenerTodosAccesos();
+        $accesos = $accesosRepositoy->obtenerTodosAccesosQueryBuilder();
+        $adaptador = new DoctrineORMAdapter($accesos,false);
+        $pager = new Pagerfanta($adaptador);
+
+        try {
+
+            $pager
+                ->setMaxPerPage(10)
+                ->setCurrentPage($page);
+
+        }catch (OutOfRangeCurrentPageException $ex){
+
+            $pager->setCurrentPage(1);
+
+        }
 
         return $this->render('accesos/listar.html.twig',[
 
-            'accesos'=> $accesos
+            'accesos'=> $accesos,
+            'paginador' => $pager
 
         ]);
 
