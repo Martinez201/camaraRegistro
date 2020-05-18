@@ -20,10 +20,10 @@
                 <tr>
                     <td>{{ acceso.empleado }}</td>
                     <td>{{ acceso.fecha|date('Y-m-d') }}</td>
-                    <td{% if not acceso.horaEntrada %} class="bg-warning"{% endif %}>{% if not acceso.horaEntrada %}--------{% else %}{{ acceso.horaEntrada|date('h:i:s')}}{% endif %}</td>
-                    <td{% if not acceso.horaSalida %} class="bg-warning"{% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('h:i:s')}}{% endif %}</td>
-                    <td{% if not acceso.horaEntradaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('h:i:s')}}{% endif %}</td>
-                    <td{% if not acceso.horaSalidaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaSalidaTarde %}--------{% else %}{{ acceso.horaSalidaTarde|date('h:i:s')}}{% endif %}</td>
+                    <td{% if not acceso.horaEntrada %} class="bg-warning"{% endif %}>{% if not acceso.horaEntrada %}--------{% else %}{{ acceso.horaEntrada|date('H:i:s')}}{% endif %}</td>
+                    <td{% if not acceso.horaSalida %} class="bg-warning"{% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('H:i:s')}}{% endif %}</td>
+                    <td{% if not acceso.horaEntradaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('H:i:s')}}{% endif %}</td>
+                    <td{% if not acceso.horaSalidaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaSalidaTarde %}--------{% else %}{{ acceso.horaSalidaTarde|date('H:i:s')}}{% endif %}</td>
                 </tr>
             {% endfor %}
         </tbody>
