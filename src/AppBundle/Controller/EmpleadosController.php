@@ -60,7 +60,7 @@ class EmpleadosController extends Controller
 
 
     /**
-     * @Route("/empleados/{id}", name="empleados_form", requirements={"id" = "\d+"}, methods={"GET","POST"})
+     * @Route("/empleado/{id}", name="empleados_form", requirements={"id" = "\d+"}, methods={"GET","POST"})
      */
 
     public function formAction(Request $request, Empleados $empleados){
@@ -93,7 +93,7 @@ class EmpleadosController extends Controller
     }
 
     /**
-     * @Route("/empleados/eliminar/{id}", name="empleados_eliminar", requirements={"id" = "\d+"}, methods={"GET","POST"})
+     * @Route("/empleado/eliminar/{id}", name="empleados_eliminar", requirements={"id" = "\d+"}, methods={"GET","POST"})
      */
 
     public function eliminarAction(Request $request, Empleados $empleados){
