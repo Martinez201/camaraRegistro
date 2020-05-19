@@ -1,0 +1,60 @@
+{%  extends 'navegacion.html.twig' %}
+
+
+{% block content %}
+
+    <h1 class="text-center text-danger mb-5"> Informes</h1>
+
+    <a href="{{ path('administracion_menu') }}" class="btn btn-danger"><i class="fas fa-arrow-alt-circle-left"></i> Ir atrás</a>
+
+    <div class="box">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                    <div class="box-part text-center">
+
+                        <i class="fas fa-file-excel fa-3x" aria-hidden="true"></i>
+
+                        <div class="title">
+                            <h4>Informes Excel</h4>
+                        </div>
+
+                        <div class="text">
+                            <span>Generar informe Accesos en excel</span>
+                        </div>
+
+                        <a href="{{ path('informe_excel') }}" class="btn btn-danger">Ir a informes excel</a>
+
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+
+                    <div class="box-part text-center">
+
+                        <i class="fas fa-file-pdf fa-3x" aria-hidden="true"></i>
+
+                        <div class="title">
+                            <h4>Informes PDF</h4>
+                        </div>
+
+                        <div class="text">
+                            <span>Generar informes de Accesos en pdf</span>
+                        </div>
+
+                        <a href="{{ path('usuarios_listar') }}" class="btn btn-danger">Ir a informes pdf</a>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block title %}
+
+    Menú Informes
+
+{% endblock %}

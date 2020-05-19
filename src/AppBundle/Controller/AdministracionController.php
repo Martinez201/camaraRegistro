@@ -20,4 +20,14 @@ class AdministracionController extends Controller
 
     }
 
+    /**
+     * @Route("/administracion/informes", name="informes_menu")
+     */
+
+    public function menuInformes(){
+
+        return $this->render('administracion/menuInformes.html.twig');
+
+    }
+
 }

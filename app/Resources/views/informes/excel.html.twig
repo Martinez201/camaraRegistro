@@ -3,12 +3,16 @@
 {% block content %}
 
     <h1 class="text-center text-danger mb-5">
-        Fichar
+        Informe Excel
     </h1>
+
+    <p class="mt-5 text-danger text-center mb-5">Selecione las fechas  de los accesos que quiera que se genere el informe y luego pulse sobre el botón generar informe</p>
 
     {{ form_start(form) }}
     {{ form_widget(form) }}
-    <button type="submit" class="btn btn-danger">Enviar</button>
+    <p class="mt-5">
+        <button type="submit" class="btn btn-danger"><i class="fas fa-file-excel"></i> Generar informe</button>
+    </p>
     {{ form_end(form) }}
 
 {% endblock %}
