@@ -97,4 +97,15 @@ class AccesosRepositoy extends ServiceEntityRepository
 
     }
 
+    public function obtenerAccesosPorFechas($inicio, $fin){
+
+        return $this->createQueryBuilder('a')
+            ->where('a.fecha BETWEEN :inicio AND :fin')
+            ->setParameter('inicio', $inicio)
+            ->setParameter('fin', $fin)
+            ->getQuery()
+            ->getResult();
+
+    }
+
 }

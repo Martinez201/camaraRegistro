@@ -1,0 +1,14 @@
+{% extends 'navegacion.html.twig' %}
+
+{% block content %}
+
+    <h1 class="text-center text-danger mb-5">
+        Fichar
+    </h1>
+
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="btn btn-danger">Enviar</button>
+    {{ form_end(form) }}
+
+{% endblock %}
