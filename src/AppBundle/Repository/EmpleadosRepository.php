@@ -37,6 +37,15 @@ class EmpleadosRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function obtenerEmpleadoApellidos($buscar){
+
+        return $this->createQueryBuilder('e')
+            ->where('e.dni = :buscar')
+            ->setParameter('buscar',$buscar)
+            ->getQuery()
+            ->getResult();
+    }
+
 
 
 }

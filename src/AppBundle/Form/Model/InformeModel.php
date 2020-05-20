@@ -16,6 +16,11 @@ class InformeModel
     private $fechaFinal;
 
     /**
+     * @var string
+     */
+    private $empleado;
+
+    /**
      * @return \DateTime
      */
     public function getFechaPrincipio()
@@ -48,6 +53,24 @@ class InformeModel
     public function setFechaFinal($fechaFinal)
     {
         $this->fechaFinal = $fechaFinal;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmpleado()
+    {
+        return $this->empleado;
+    }
+
+    /**
+     * @param string $empleado
+     * @return InformeModel
+     */
+    public function setEmpleado($empleado)
+    {
+        $this->empleado = $empleado;
         return $this;
     }
 

@@ -6,6 +6,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\Type\InformeType;
 use AppBundle\Repository\AccesosRepositoy;
+use AppBundle\Repository\EmpleadosRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
@@ -18,68 +19,93 @@ class FicherosExcelController extends Controller
      * @Route("/informe",name="informe_excel", methods={"GET", "POST"})
      */
 
-      public function excelAction(Request $request, AccesosRepositoy $accesosRepositoy)
+      public function excelAction(Request $request, AccesosRepositoy $accesosRepositoy, EmpleadosRepository $empleadosRepository)
       {
 
           $form = $this->createForm(InformeType::class);
           $form->handleRequest($request);
-
+          $accesos = 0;
           if ($form->isSubmitted() && $form->isValid()) {
 
               $fechaInicial = $form->get('fechaPrincipio')->getData();
               $fechaFinal = $form->get('fechaFinal')->getData();
+              $buscar = $form->get('empleado')->getData();
 
-              $accesos = $accesosRepositoy->obtenerAccesosPorFechas($fechaInicial, $fechaFinal);
+              if(!$buscar){
 
+                  $accesos = $accesosRepositoy->obtenerAccesosPorFechas($fechaInicial, $fechaFinal);
 
-              $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+              }
+              else{
 
-              $phpExcelObject->getProperties()->setCreator('Camara Linares')
-                  ->setTitle('informe');
+                  $empleado = $empleadosRepository->obtenerEmpleadoApellidos($buscar);
 
-              $excel = $phpExcelObject->setActiveSheetIndex(0);
+                  if(!$empleado){
 
-              $excel->setCellValue('D7', 'Empleado');
-              $excel->setCellValue('E7', 'Fecha');
-              $excel->setCellValue('F7', 'Entrada (Mañana)');
-              $excel->setCellValue('G7', 'Salida (Mañana)');
-              $excel->setCellValue('H7', 'Entrada (Tarde)');
-              $excel->setCellValue('I7', 'Salida (Tarde)');
+                      $this->addFlash('error','Error: No se ha encotrado ningún empleado con ese dni');
+                  }
+                  else{
 
-              $filas = 8;
-
-
-              foreach ($accesos as $dato) {
-
-                  $excel->setCellValue('D' . $filas, $dato->getEmpleado());
-                  $excel->setCellValue('E' . $filas, $dato->getFecha());
-                  $excel->setCellValue('F' . $filas, $dato->getHoraEntrada());
-                  $excel->setCellValue('G' . $filas, $dato->getHoraSalida());
-                  $excel->setCellValue('H' . $filas, $dato->getHoraEntradaTarde());
-                  $excel->setCellValue('I' . $filas, $dato->getHoraSalidaTarde());
-
-                  $filas++;
+                      $accesos = $accesosRepositoy->obtenerAccesosFechasApellidos($fechaInicial, $fechaFinal,$empleado[0]->getId());
+                  }
 
               }
 
-              $phpExcelObject->getActiveSheet()->setTitle('Listado de Accesos');
-              $phpExcelObject->setActiveSheetIndex(0);
+                if(!$accesos){
 
-              $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+                    $this->addFlash('error','Error: No se ha encontrado ningún acceso');
 
-              $response = $this->get('phpexcel')->createStreamedResponse($writer);
+                }
+                else{
+                    $phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
 
-              $dispositionHeader = $response->headers->makeDisposition(
-                  ResponseHeaderBag::DISPOSITION_ATTACHMENT,
-                  'informeAccesos.xlsx'
-              );
+                    $phpExcelObject->getProperties()->setCreator('Camara Linares')
+                        ->setTitle('informe');
 
-              $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
-              $response->headers->set('Pragma', 'public');
-              $response->headers->set('Cache-Control', 'maxage=1');
-              $response->headers->set('Content-Disposition', $dispositionHeader);
+                    $excel = $phpExcelObject->setActiveSheetIndex(0);
 
-             return $response;
+                    $excel->setCellValue('D7', 'Empleado');
+                    $excel->setCellValue('E7', 'Fecha');
+                    $excel->setCellValue('F7', 'Entrada (Mañana)');
+                    $excel->setCellValue('G7', 'Salida (Mañana)');
+                    $excel->setCellValue('H7', 'Entrada (Tarde)');
+                    $excel->setCellValue('I7', 'Salida (Tarde)');
+
+                    $filas = 8;
+
+
+                    foreach ($accesos as $dato) {
+
+                        $excel->setCellValue('D' . $filas, $dato->getEmpleado());
+                        $excel->setCellValue('E' . $filas, $dato->getFecha());
+                        $excel->setCellValue('F' . $filas, $dato->getHoraEntrada());
+                        $excel->setCellValue('G' . $filas, $dato->getHoraSalida());
+                        $excel->setCellValue('H' . $filas, $dato->getHoraEntradaTarde());
+                        $excel->setCellValue('I' . $filas, $dato->getHoraSalidaTarde());
+
+                        $filas++;
+
+                    }
+
+                    $phpExcelObject->getActiveSheet()->setTitle('Listado de Accesos');
+                    $phpExcelObject->setActiveSheetIndex(0);
+
+                    $writer = $this->get('phpexcel')->createWriter($phpExcelObject, 'Excel2007');
+
+                    $response = $this->get('phpexcel')->createStreamedResponse($writer);
+
+                    $dispositionHeader = $response->headers->makeDisposition(
+                        ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+                        'informeAccesos.xlsx'
+                    );
+
+                    $response->headers->set('Content-Type', 'text/vnd.ms-excel; charset=utf-8');
+                    $response->headers->set('Pragma', 'public');
+                    $response->headers->set('Cache-Control', 'maxage=1');
+                    $response->headers->set('Content-Disposition', $dispositionHeader);
+
+                    return $response;
+                }
 
           }
 

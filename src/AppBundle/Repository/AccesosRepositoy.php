@@ -106,6 +106,19 @@ class AccesosRepositoy extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
+
+    }
+
+    public function obtenerAccesosFechasApellidos($inicio, $fin,$empleado){
+
+        return $this->createQueryBuilder('a')
+            ->where('a.fecha BETWEEN :inicio AND :fin')
+            ->andWhere('a.empleado = :empleado')
+            ->setParameter('inicio', $inicio)
+            ->setParameter('fin', $fin)
+            ->setParameter('empleado',$empleado)
+            ->getQuery()
+            ->getResult();
     }
 
 }
