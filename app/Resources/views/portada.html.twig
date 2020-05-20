@@ -17,7 +17,7 @@
                     <li class="nav-item"><a href="{{ path('accesos_listar') }}" class="nav-link text-danger">Accesos</a></li>
                     <li class="nav-item"><a href="{{ path('administracion_menu') }}" class="nav-link text-danger">Administración</a></li>
                     {%  if app.user %}
-                         <li class="btn btn-danger ml-5"><a href="{{ path('usuario_salir') }}" class="text-light">Salir</a></li>
+                        <li class="btn btn-danger ml-5"><a href="{{ path('usuario_salir') }}" class="text-light">Salir</a></li>
                     {% else %}
                         <li ><a href="{{ path('usuario_entrar') }}" class="btn btn-danger text-light">Entrar</a></li>
                     {% endif %}
@@ -44,5 +44,24 @@
             </div>
         {% endfor %}
         {% block content %}{% endblock %}
+    </div>
+    <footer class="page-footer font-small bg-danger mt-auto mt-auto">
+
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            <p class="text-light">Cámara Oficial de Comercio, Industria y Servicios de Linares</p>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">
+            <p class="text-light">C/ Sagunto 1, 23700 Linares (Jaén) | Tel. 953 60 60 63 | Fax. 953 69 55 11 | camara@camaralinares.es</p>
+        </div>
+        <div class="footer-copyright text-center py-3">
+            <p  class="text-light"><a href="http://camaralinares.es/index.php?option=com_content&view=article&layout=edit&id=226" class="text-decoration-none text-light ">Aviso legal</a> | <a href="http://camaralinares.es/index.php?option=com_content&view=article&layout=edit&id=227"  class="text-decoration-none text-light ">Política de privacidad</a></p>
+        </div>
+
+
+
+    </footer>
+    <!-- Footer -->
 
 {% endblock %}

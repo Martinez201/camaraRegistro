@@ -1,4 +1,4 @@
-{% extends 'navegacion.html.twig' %}
+{% extends 'portada.html.twig' %}
 
 {% block content %}
 
@@ -7,7 +7,7 @@
 </h1>
 
 {{ form_start(form) }}
-    <p class="mt-5 mb-5 text-danger text-center"> Inserte su D.N.I en el cuadro de texto y a continuación pulse el botón correspondiente (Verde marca la entrada y Rojo la salida)</p>
+    <p class="mt-5 mb-5 text-danger text-center"> Inserte su DNI en el cuadro de texto y a continuación pulse el botón correspondiente (Verde marca la entrada y Rojo la salida)</p>
 {{ form_widget(form) }}
 
     {% if hora > '08:00:00' and hora < '15:30:00' %}
