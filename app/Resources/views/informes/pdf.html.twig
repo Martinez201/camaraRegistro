@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<style>
+    div{
+        text-align: center;
+        border: 1px solid black;
+        padding: 1em;
+        margin: auto;
+    }
+    .cabecera{
+        height: 200px;
+    }
+    h1{
+        align-self: center;
+    }
+    .cuerpo{
+        text-align: center;
+    }
+    table{
+        margin: auto;
+        border:1px solid black;
+        text-align: center;
+    }
+    td,tr{
+        border:1px solid black;
+    }
+</style>
+<div class="cabecera">
+    <h1>Informe Accesos</h1>
+
+</div>
+    <table>
+        <thead>
+        <tr>
+            <td>Empleado</td>
+            <td>Fecha</td>
+            <td>Entrada (Mañana)</td>
+            <td>Salida (Mañana)</td>
+            <td>Entrada (Tarde)</td>
+            <td>Salida (Tarde)</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for acceso in accesos %}
+            <tr>
+                <td>{{ acceso.empleado }}</td>
+                <td>{{ acceso.fecha|date('Y-m-d') }}</td>
+                <td{% if not acceso.horaEntrada %} style="background-color: yellow"{% endif %}>{% if not acceso.horaEntrada %}--------{% else %}{{ acceso.horaEntrada|date('H:i:s')}}{% endif %}</td>
+                <td{% if not acceso.horaSalida %} style="background-color: yellow" {% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('H:i:s')}}{% endif %}</td>
+                <td{% if not acceso.horaEntradaTarde %} style="background-color: yellow" {% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('H:i:s')}}{% endif %}</td>
+                <td{% if not acceso.horaSalidaTarde %} style="background-color: yellow" {% endif %}>{% if not acceso.horaSalidaTarde %}--------{% else %}{{ acceso.horaSalidaTarde|date('H:i:s')}}{% endif %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

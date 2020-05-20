@@ -32,7 +32,8 @@
         "symfony/swiftmailer-bundle": "^2.6.4",
         "symfony/symfony": "3.4.*",
         "twig/twig": "^1.0||^2.0",
-        "white-october/pagerfanta-bundle": " ^1.0"
+        "white-october/pagerfanta-bundle": " ^1.0",
+        "tfox/mpdf-port-bundle": "^2.0"
     },
     "require-dev": {
         "nelmio/alice": "^2.1",

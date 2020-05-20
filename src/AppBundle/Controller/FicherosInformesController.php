@@ -11,12 +11,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
+use TFox\MpdfPortBundle\Service\MpdfService;
+use Twig\Environment;
 
-class FicherosExcelController extends Controller
+class FicherosInformesController extends Controller
 {
 
     /**
-     * @Route("/informe",name="informe_excel", methods={"GET", "POST"})
+     * @Route("/informe/excel",name="informe_excel", methods={"GET", "POST"})
      */
 
       public function excelAction(Request $request, AccesosRepositoy $accesosRepositoy, EmpleadosRepository $empleadosRepository)
@@ -114,4 +116,63 @@ class FicherosExcelController extends Controller
               'form' => $form->createView()
           ]);
       }
+
+    /**
+     * @Route("/informe/pdf",name="informe_pdf", methods={"GET", "POST"})
+     */
+
+    public function pdfAction(Request $request, AccesosRepositoy $accesosRepositoy, EmpleadosRepository $empleadosRepository, Environment $twig)
+    {
+
+        $form = $this->createForm(InformeType::class);
+        $form->handleRequest($request);
+        $accesos = 0;
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $fechaInicial = $form->get('fechaPrincipio')->getData();
+            $fechaFinal = $form->get('fechaFinal')->getData();
+            $buscar = $form->get('empleado')->getData();
+
+            if (!$buscar) {
+
+                $accesos = $accesosRepositoy->obtenerAccesosPorFechas($fechaInicial, $fechaFinal);
+
+            } else {
+
+                $empleado = $empleadosRepository->obtenerEmpleadoApellidos($buscar);
+
+                if (!$empleado) {
+
+                    $this->addFlash('error', 'Error: No se ha encotrado ningún empleado con ese dni');
+                } else {
+
+                    $accesos = $accesosRepositoy->obtenerAccesosFechasApellidos($fechaInicial, $fechaFinal, $empleado[0]->getId());
+                }
+
+            }
+
+            if (!$accesos) {
+
+                $this->addFlash('error', 'Error: No se ha encontrado ningún acceso');
+
+            } else {
+
+                $mpdfService = new MpdfService();
+
+                $html =  $twig->render('informes/pdf.html.twig',[
+
+                    'accesos'=> $accesos
+
+                ]);
+
+                return $mpdfService->generatePdfResponse($html);
+            }
+
+        }
+
+        return $this->render('informes/pdfForm.html.twig', [
+
+            'form' => $form->createView()
+        ]);
+    }
 }
