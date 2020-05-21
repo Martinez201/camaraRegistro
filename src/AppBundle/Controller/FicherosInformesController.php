@@ -7,12 +7,16 @@ namespace AppBundle\Controller;
 use AppBundle\Form\Type\InformeType;
 use AppBundle\Repository\AccesosRepositoy;
 use AppBundle\Repository\EmpleadosRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\Routing\Annotation\Route;
 use TFox\MpdfPortBundle\Service\MpdfService;
 use Twig\Environment;
+/**
+ * @Security("is_granted('ROLE_USER')")
+ */
 
 class FicherosInformesController extends Controller
 {

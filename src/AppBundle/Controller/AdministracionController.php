@@ -4,8 +4,13 @@
 namespace AppBundle\Controller;
 
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
+
+/**
+ * @Security("is_granted('ROLE_USER')")
+ */
 
 class AdministracionController extends Controller
 {
