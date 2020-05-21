@@ -15,16 +15,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-/**
- * @Security("is_granted('ROLE_ADMINISTRADOR')")
- */
-
 
 class EmpleadosController extends Controller
 {
 
     /**
      * @Route("/empleados/{page}", name="empleados_listar")
+     *  @Security("is_granted('ROLE_ADMINISTRADOR')")
      */
 
     public function empleadosAction(EmpleadosRepository $empleadosRepository, $page = 1){
@@ -55,6 +52,7 @@ class EmpleadosController extends Controller
 
     /**
      * @Route("/empleado/alta", name="empleados_altas", methods={"GET","POST"})
+     *  @Security("is_granted('ROLE_ADMINISTRADOR')")
      */
     public function nuevaAction(Request $request){
 
@@ -67,6 +65,7 @@ class EmpleadosController extends Controller
 
     /**
      * @Route("/empleado/{id}", name="empleados_form", requirements={"id" = "\d+"}, methods={"GET","POST"})
+     *  @Security("is_granted('ROLE_ADMINISTRADOR')")
      */
 
     public function formAction(Request $request, Empleados $empleados){
@@ -100,6 +99,7 @@ class EmpleadosController extends Controller
 
     /**
      * @Route("/empleado/eliminar/{id}", name="empleados_eliminar", requirements={"id" = "\d+"}, methods={"GET","POST"})
+     *  @Security("is_granted('ROLE_ADMINISTRADOR')")
      */
 
     public function eliminarAction(Request $request, Empleados $empleados){
