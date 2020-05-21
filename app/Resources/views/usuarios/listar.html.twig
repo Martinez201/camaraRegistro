@@ -19,6 +19,7 @@
             <td>Usuario</td>
             <td>Empleado</td>
             <td>Tipo Usuario</td>
+            <td>Clave</td>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
                 <td><a href="{{ path('usuario_form',{'id': usuario.id}) }}">{{ usuario.nombreUsuario }}</a></td>
                 <td>{{ usuario.empleado}}</td>
                 <td>{% if not usuario.administrador %} Usuario {% else %}Administrador {% endif %}</td>
+                <td><a href="{{ path('admin_cambiar_clave',{'id': usuario.id}) }}" class="btn btn-warning">Cambiar clave</a></td>
             </tr>
         {% endfor %}
         </tbody>

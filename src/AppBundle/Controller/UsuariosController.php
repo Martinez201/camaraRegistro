@@ -5,12 +5,15 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Usuarios;
+use AppBundle\Form\Model\CambioClave;
+use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
 use AppBundle\Repository\UsuariosRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Security("is_granted('ROLE_ADMINISTRADOR')")
@@ -109,5 +112,52 @@ class UsuariosController extends Controller
 
         ]);
 
+    }
+
+
+    /**
+     * @Route("/uduarios/clave/{id}", name="admin_cambiar_clave")
+     * @Security("is_granted('ROLE_ADMINISTRADOR')")
+     */
+
+    public function establecerAction(Request $request, UserPasswordEncoderInterface $encoder, Usuarios $usuarios){
+
+        $cambioCLave = new CambioClave();
+
+        $form = $this->createForm(CambioClaveType::class, $cambioCLave,[
+
+            'es_admin'=> true
+        ]);
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted()&& $form->isValid()){
+
+            try {
+
+                $em = $this->getDoctrine()->getManager();
+                $usuarios->setClave(
+
+                    $encoder->encodePassword($usuarios, $cambioCLave->getNuevaClave())
+
+                );
+                $em->flush();
+                $this->addFlash('success','Se ha cambiado la contraseña con éxito');
+                $this->redirectToRoute('empleados_form',['id'=> $usuarios->getId()]);
+
+            }catch (\Exception $ex){
+
+                $this->addFlash('error','Error: No se ha podido cambiar la contraseña');
+
+            }
+
+        }
+
+        return $this->render('empleados/establecerClave.html.twig',[
+
+            'formulario'=> $form->createView(),
+            'empleado'=> $usuarios
+
+        ]);
     }
 }
