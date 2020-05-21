@@ -13,5 +13,5 @@ AppBundle\Entity\Usuarios:
   empleado_Administrador:
     empleado: '@empleados_pueba*'
     nombreUsuario: 'Admin'
-    clave: 'Admin'
+    clave: "<codificarClave('Admin')>"
     administrador: 1
