@@ -5,6 +5,7 @@ namespace AppBundle\Entity;
 use AppBundle\Entity\Empleados;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -26,12 +27,16 @@ class Usuarios implements UserInterface
     private $administrador;
     /**
      * @ORM\Column(type="string", unique= true)
+     * @Assert\Length(min = 6)
+     * @Assert\NotBlank()
      * @var string
      */
     private $nombreUsuario;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Length(min = 6)
+     * @Assert\NotBlank()
      * @var string
      */
     private $clave;
