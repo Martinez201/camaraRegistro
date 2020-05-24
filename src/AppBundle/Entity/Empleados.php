@@ -29,12 +29,12 @@ class Empleados
      */
     private $apellidos;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique= true)
      * @var string
      */
     private $dni;
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string" , unique= true)
      * @var string
      */
     private $email;
