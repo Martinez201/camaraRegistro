@@ -41,11 +41,11 @@ class UsuariosController extends Controller
     /**
      * @Route("/usuarios/alta", name="usuario_altas", methods={"GET","POST"})
      */
-    public function nuevaAction(Request $request){
+    public function nuevaAction(Request $request, UserPasswordEncoderInterface $encoder){
 
         $usuario = new Usuarios();
         $this->getDoctrine()->getManager()->persist($usuario);
-        return $this->formAction($request,$usuario);
+        return $this->formAction($request,$usuario,$encoder);
 
     }
 
@@ -54,10 +54,18 @@ class UsuariosController extends Controller
      * @Route("/usuarios/{id}", name="usuario_form", requirements={"id" = "\d+"}, methods={"GET","POST"})
      */
 
-    public function formAction(Request $request, Usuarios $usuarios){
+    public function formAction(Request $request, Usuarios $usuarios, UserPasswordEncoderInterface $encoder){
 
         $form = $this->createForm(UsuarioType::class, $usuarios);
         $form->handleRequest($request);
+
+        $clave = $form->get('clave')->getData();
+
+        if($clave){
+
+            $usuarios->setClave($encoder->encodePassword($usuarios,$clave));
+
+        }
 
         if($form->isSubmitted() && $form->isValid()){
 
