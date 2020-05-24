@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use AppBundle\Entity\Usuarios;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -20,21 +21,29 @@ class Empleados
     private $id;
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 6)
      * @var string
      */
     private $nombre;
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 6)
      * @var string
      */
     private $apellidos;
     /**
      * @ORM\Column(type="string", unique= true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 9, max= 10)
      * @var string
      */
     private $dni;
     /**
      * @ORM\Column(type="string" , unique= true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min = 6)
      * @var string
      */
     private $email;
