@@ -22,14 +22,14 @@ class Empleados
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     * @Assert\Length(min = 6)
+     * @Assert\Length(min = 4)
      * @var string
      */
     private $nombre;
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
-     * @Assert\Length(min = 6)
+     * @Assert\Length(min = 4)
      * @var string
      */
     private $apellidos;
