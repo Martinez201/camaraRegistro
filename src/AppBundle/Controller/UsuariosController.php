@@ -9,6 +9,9 @@ use AppBundle\Form\Model\CambioClave;
 use AppBundle\Form\Type\CambioClaveType;
 use AppBundle\Form\Type\UsuarioType;
 use AppBundle\Repository\UsuariosRepository;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Exception\OutOfRangeCurrentPageException;
+use Pagerfanta\Pagerfanta;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,22 +27,38 @@ class UsuariosController extends Controller
 {
 
     /**
-     * @Route("/usuarios", name="usuarios_listar")
+     * @Route("/usuarios/{page}", name="usuarios_listar")
      */
-    public function usuariosAction(UsuariosRepository $usuariosRepository){
+    public function usuariosAction(UsuariosRepository $usuariosRepository,$page = 1){
 
-        $usuarios = $usuariosRepository->obtenerEmpleadosUsuariosOrdenados();
+        $usuarios = $usuariosRepository->obtenerEmpleadosUsuariosOrdenadosQueryBuilder();
+        $adaptador = new DoctrineORMAdapter($usuarios,false);
+        $pager = new Pagerfanta($adaptador);
+
+        try {
+
+            $pager
+                ->setMaxPerPage(10)
+                ->setCurrentPage($page);
+
+        }catch (OutOfRangeCurrentPageException $ex){
+
+            $pager->setCurrentPage(1);
+
+        }
+
 
         return $this->render('usuarios/listar.html.twig',[
 
-            'usuarios' => $usuarios
+            'usuarios' => $usuarios,
+            'paginador' => $pager
 
         ]);
 
     }
 
     /**
-     * @Route("/usuarios/alta", name="usuario_altas", methods={"GET","POST"})
+     * @Route("/usuario/alta", name="usuario_altas", methods={"GET","POST"})
      */
     public function nuevaAction(Request $request, UserPasswordEncoderInterface $encoder){
 
@@ -51,7 +70,7 @@ class UsuariosController extends Controller
 
 
     /**
-     * @Route("/usuarios/{id}", name="usuario_form", requirements={"id" = "\d+"}, methods={"GET","POST"})
+     * @Route("/usuario/{id}", name="usuario_form", requirements={"id" = "\d+"}, methods={"GET","POST"})
      */
 
     public function formAction(Request $request, Usuarios $usuarios, UserPasswordEncoderInterface $encoder){
@@ -92,7 +111,7 @@ class UsuariosController extends Controller
     }
 
     /**
-     * @Route("/usuarios/eliminar/{id}", name="usuario_eliminar", requirements={"id" = "\d+"}, methods={"GET","POST"})
+     * @Route("/usuario/eliminar/{id}", name="usuario_eliminar", requirements={"id" = "\d+"}, methods={"GET","POST"})
      */
 
     public function eliminarAction(Request $request, Usuarios $usuarios){
@@ -124,7 +143,7 @@ class UsuariosController extends Controller
 
 
     /**
-     * @Route("/uduarios/clave/{id}", name="admin_cambiar_clave")
+     * @Route("/uduario/clave/{id}", name="admin_cambiar_clave")
      * @Security("is_granted('ROLE_ADMINISTRADOR')")
      */
 

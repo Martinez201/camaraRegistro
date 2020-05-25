@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for usuario in usuarios %}
+        {% for usuario in paginador.currentPageResults %}
             <tr>
                 <td><a href="{{ path('usuario_form',{'id': usuario.id}) }}">{{ usuario.nombreUsuario }}</a></td>
                 <td>{{ usuario.empleado}}</td>
@@ -33,6 +33,8 @@
         {% endfor %}
         </tbody>
     </table>
-
+    {% if paginador and paginador.haveToPaginate %}
+        {{ pagerfanta(paginador,'twitter_bootstrap4') }}
+    {% endif %}
 {% endblock %}
 

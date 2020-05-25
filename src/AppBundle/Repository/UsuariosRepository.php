@@ -15,14 +15,20 @@ class UsuariosRepository extends ServiceEntityRepository
         parent::__construct($registry, Usuarios::class);
     }
 
-    public function obtenerEmpleadosUsuariosOrdenados(){
+    public function obtenerEmpleadosUsuariosOrdenadosQueryBuilder(){
 
         return $this->createQueryBuilder('us')
-            ->orderBy('us.empleado')
+            ->orderBy('us.empleado');
+
+
+
+    }
+
+    public function obtenerEmpleadosUsuariosOrdenados(){
+
+        return $this->obtenerEmpleadosUsuariosOrdenadosQueryBuilder()
             ->getQuery()
             ->getResult();
-
-
     }
 
 
