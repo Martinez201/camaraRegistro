@@ -143,7 +143,7 @@ class UsuariosController extends Controller
 
 
     /**
-     * @Route("/uduario/clave/{id}", name="admin_cambiar_clave")
+     * @Route("/usuario/clave/{id}", name="admin_cambiar_clave")
      * @Security("is_granted('ROLE_ADMINISTRADOR')")
      */
 
