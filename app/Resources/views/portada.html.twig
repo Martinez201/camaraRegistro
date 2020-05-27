@@ -19,7 +19,7 @@
                         <li class="nav-item"><a href="{{ path('administracion_menu') }}" class="nav-link text-danger">Administración</a></li>
                     {% endif %}
                     {%  if app.user %}
-                        <li class="btn btn-danger ml-5"><a href="{{ path('usuario_salir') }}" class="text-light">Salir</a></li>
+                        <li><a href="{{ path('usuario_salir') }}" class="btn btn-danger text-light">Salir</a></li>
                     {% else %}
                         <li ><a href="{{ path('usuario_entrar') }}" class="btn btn-danger text-light">Entrar</a></li>
                     {% endif %}
