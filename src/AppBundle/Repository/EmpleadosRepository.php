@@ -40,7 +40,7 @@ class EmpleadosRepository extends ServiceEntityRepository
     public function obtenerEmpleadoApellidos($buscar){
 
         return $this->createQueryBuilder('e')
-            ->where('e.dni = :buscar')
+            ->where('e.id = :buscar')
             ->setParameter('buscar',$buscar)
             ->getQuery()
             ->getResult();
