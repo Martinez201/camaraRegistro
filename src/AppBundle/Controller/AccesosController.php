@@ -83,7 +83,7 @@ class AccesosController extends Controller
                        $em->persist($accesoNuevo);
                        $em->flush();
 
-                       $this->addFlash('success','Entrada registrada con éxito');
+                       $this->addFlash('success','Entrada registrada con éxito a la hora '.date('H:i:s').' del dia '.date('d-m-Y'));
                     }
                     else{
 
@@ -116,7 +116,7 @@ class AccesosController extends Controller
                                 $resultado->setHoraSalida(date_create(date('H:i:s')));
                                 $em = $this->getDoctrine()->getManager();
                                 $em->flush();
-                                $this->addFlash('success','Salida registrada con éxito');
+                                $this->addFlash('success','Salida registrada con éxito a la hora '.date('H:i:s').' del dia '.date('d-m-Y'));
                             }
 
                         }
@@ -150,7 +150,7 @@ class AccesosController extends Controller
                                 $resultado->setHoraEntradaTarde(date_create(date('H:i:s')));
                                 $em = $this->getDoctrine()->getManager();
                                 $em->flush();
-                                $this->addFlash('success','Entrada registrada con éxito');
+                                $this->addFlash('success','Entrada registrada con éxito a hora '.date('H:i:s').' del dia '.date('d-m-Y'));
                         }
                         else{
 
@@ -184,7 +184,7 @@ class AccesosController extends Controller
                                 $resultado->setHoraSalidaTarde(date_create(date('H:i:s')));
                                 $em = $this->getDoctrine()->getManager();
                                 $em->flush();
-                                $this->addFlash('success','Salida registrada con éxito');
+                                $this->addFlash('success','Salida registrada con éxito a la hora '.date('H:i:s').' del dia '.date('d-m-Y'));
                             }
 
                         }
