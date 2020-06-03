@@ -97,8 +97,9 @@ class AccesosController extends Controller
                     if($usuario){
 
                         $acceso = $accesosRepositoy->obtenerAcceso($fecha,$usuario);
+                        $entrada = $accesosRepositoy->obtenerEntradaManana($fecha,$usuario);
 
-                        if($acceso == 0){
+                        if($acceso == 0 || $entrada == 0){
 
                              $this->addFlash('error','Error: no has fichado la entrada');
 
@@ -164,8 +165,9 @@ class AccesosController extends Controller
                     if($usuario){
 
                         $acceso = $accesosRepositoy->obtenerAcceso($fecha,$usuario);
+                        $entrada = $accesosRepositoy->obtenerEntradaTarde($fecha,$usuario);
 
-                        if($acceso == 0){
+                        if($acceso == 0 || $entrada == 0){
 
                             $this->addFlash('error','Error: no has fichado la entrada');
 
@@ -197,8 +199,6 @@ class AccesosController extends Controller
                 $this->addFlash('error','Error: No hay ningún empleado registrado con ese D.N.I');
 
             }
-
-
 
         }
 

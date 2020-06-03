@@ -55,6 +55,19 @@ class AccesosRepositoy extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+    public function obtenerEntradaManana($fecha,$empleado){
+
+        return $this->createQueryBuilder('a')
+            ->select('COUNT(a)')
+            ->Where('a.fecha = :fecha')
+            ->andWhere('a.empleado = :empleado')
+            ->andWhere('a.horaEntrada IS NOT NULL ')
+            ->setParameter('empleado', $empleado)
+            ->setParameter('fecha',$fecha)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
 
     public function obtenerTurnoTarde($fecha,$empleado){
 
