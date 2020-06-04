@@ -20,7 +20,7 @@ class AccesosRepositoy extends ServiceEntityRepository
     public function obtenerTodosAccesosQueryBuilder(){
 
         return $this->createQueryBuilder('ac')
-            ->orderBy('ac.fecha');
+            ->orderBy('ac.fecha','DESC');
 
 
     }

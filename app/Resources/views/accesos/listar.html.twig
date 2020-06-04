@@ -13,6 +13,7 @@
                 <td>Salida (Mañana)</td>
                 <td>Entrada (Tarde)</td>
                 <td>Salida (Tarde)</td>
+                <td>Total (horas)</td>
             </tr>
         </thead>
         <tbody>
@@ -24,6 +25,20 @@
                     <td{% if not acceso.horaSalida %} class="bg-warning"{% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('H:i:s')}}{% endif %}</td>
                     <td{% if not acceso.horaEntradaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('H:i:s')}}{% endif %}</td>
                     <td{% if not acceso.horaSalidaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaSalidaTarde %}--------{% else %}{{ acceso.horaSalidaTarde|date('H:i:s')}}{% endif %}</td>
+                    {% if acceso.horaSalidaTarde %}
+                        {% set horas =   acceso.horaSalida|date_modify('-' ~ acceso.horaEntrada|date('H') ~ 'hour')|date('H')   %}
+                        {% set horas2 =   acceso.horaSalidaTarde|date_modify('-' ~ acceso.horaEntradaTarde|date('H') ~ 'hour')|date('H') %}
+                        <td>{{ horas + horas2 }} Horas</td>
+                        {% else %}
+                            {% if acceso.horaSalida %}
+                                <td>{{ acceso.horaSalida|date_modify('-' ~ acceso.horaEntrada|date('H') ~ 'hour')|date('H') }} Horas</td>
+                                {% else %}
+                                <td>-----</td>
+                    {% endif %}
+
+
+
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>
