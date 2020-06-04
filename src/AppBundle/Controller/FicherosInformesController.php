@@ -124,7 +124,6 @@ class FicherosInformesController extends Controller
                             $intervaloT = $dato->getHoraSalidaTarde()->diff($dato->getHoraEntradaTarde());
                             $intervaloM = $dato->getHoraSalida()->diff($dato->getHoraEntrada());
                             $suma1 = $intervaloM->format('%H') + $intervaloT->format('%H');
-                            dump($suma1);
                             $excel->setCellValue('J' . $filas, $suma1);
                         }
                         else{
