@@ -32,8 +32,8 @@
     #customers tr:hover {background-color: #ddd;}
 
     #customers th {
-        padding-top: 12px;
-        padding-bottom: 12px;
+        padding-top: 5px;
+        padding-bottom: 5px;
         text-align: left;
         background-color: red;
         color: white;
@@ -57,15 +57,30 @@
         <th>Salida (Mañana)</th>
         <th>Entrada (Tarde)</th>
         <th>Salida (Tarde)</th>
+        <th>Total (horas)</th>
     </tr>
-    {% for acceso in accesos %}
+    {% for acceso in accesos  %}
         <tr>
             <td>{{ acceso.empleado }}</td>
             <td>{{ acceso.fecha|date('Y-m-d') }}</td>
-            <td{% if not acceso.horaEntrada %} style="background-color: yellow"{% endif %}>{% if not acceso.horaEntrada %}--------{% else %}{{ acceso.horaEntrada|date('H:i:s')}}{% endif %}</td>
-            <td{% if not acceso.horaSalida %} style="background-color: yellow" {% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('H:i:s')}}{% endif %}</td>
-            <td{% if not acceso.horaEntradaTarde %} style="background-color: yellow" {% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('H:i:s')}}{% endif %}</td>
-            <td{% if not acceso.horaSalidaTarde %} style="background-color: yellow" {% endif %}>{% if not acceso.horaSalidaTarde %}--------{% else %}{{ acceso.horaSalidaTarde|date('H:i:s')}}{% endif %}</td>
+            <td{% if not acceso.horaEntrada %} class="bg-warning"{% endif %}>{% if not acceso.horaEntrada %}--------{% else %}{{ acceso.horaEntrada|date('H:i:s')}}{% endif %}</td>
+            <td{% if not acceso.horaSalida %} class="bg-warning"{% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('H:i:s')}}{% endif %}</td>
+            <td{% if not acceso.horaEntradaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('H:i:s')}}{% endif %}</td>
+            <td{% if not acceso.horaSalidaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaSalidaTarde %}--------{% else %}{{ acceso.horaSalidaTarde|date('H:i:s')}}{% endif %}</td>
+            {% if acceso.horaSalidaTarde %}
+                {% set horas =   acceso.horaSalida|date_modify('-' ~ acceso.horaEntrada|date('H') ~ 'hour')|date('H')   %}
+                {% set horas2 =   acceso.horaSalidaTarde|date_modify('-' ~ acceso.horaEntradaTarde|date('H') ~ 'hour')|date('H') %}
+                <td>{{ horas + horas2 }} Horas</td>
+            {% else %}
+                {% if acceso.horaSalida %}
+                    <td>{{ acceso.horaSalida|date_modify('-' ~ acceso.horaEntrada|date('H') ~ 'hour')|date('H') }} Horas</td>
+                {% else %}
+                    <td>-----</td>
+                {% endif %}
+
+
+
+            {% endif %}
         </tr>
     {% endfor %}
 </table>
