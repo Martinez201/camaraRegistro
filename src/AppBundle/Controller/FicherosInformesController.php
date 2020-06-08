@@ -85,7 +85,6 @@ class FicherosInformesController extends Controller
 
                         $excel->setCellValue('D' . $filas, $dato->getEmpleado());
                         $excel->setCellValue('E' . $filas, $dato->getFecha()->format('d-m-Y'));
-                        $excel->setCellValue('F' . $filas, $dato->getHoraEntrada()->format('H:i:s'));
                         if( $dato->getHoraEntrada()){
 
                             $excel->setCellValue('F' . $filas, $dato->getHoraEntrada()->format('H:i:s'));
@@ -118,27 +117,61 @@ class FicherosInformesController extends Controller
 
                             $excel->setCellValue('I' . $filas, '--------');
                         }
+                        $suma1 = 0;
+                        if($dato->getHoraSalida()){
 
-                        if($dato->getHoraSalidaTarde()){
+                            if ($dato->getHoraEntrada()){
 
-                            $intervaloT = $dato->getHoraSalidaTarde()->diff($dato->getHoraEntradaTarde());
-                            $intervaloM = $dato->getHoraSalida()->diff($dato->getHoraEntrada());
-                            $suma1 = $intervaloM->format('%H') + $intervaloT->format('%H');
-                            $excel->setCellValue('J' . $filas, $suma1);
+                                $intervaloM = $dato->getHoraSalida()->diff($dato->getHoraEntrada());
+                                $suma1 = $intervaloM->format('%H');
+                            }
+                            else{
+
+                                $excel->setCellValue('J' . $filas, "--------");
+                            }
+
+
+                            if($dato->getHoraSalidaTarde()){
+
+                                if($dato->getHoraEntradaTarde()) {
+
+                                    $intervaloT = $dato->getHoraSalidaTarde()->diff($dato->getHoraEntradaTarde());
+                                    $suma1 = $suma1 + $intervaloT->format('%H');
+                                    $excel->setCellValue('J' . $filas, $suma1);
+                                }
+                                else{
+
+                                    $excel->setCellValue('J' . $filas, "--------");
+                                }
+                            }
+                            else{
+
+                                $suma1 = $intervaloM->format('%H');
+                                $excel->setCellValue('J' . $filas, $suma1);
+                            }
+
                         }
                         else{
 
-                            if($dato->getHoraSalida()){
+                            if($dato->getHoraSalidaTarde()){
 
-                                $intervaloM = $dato->getHoraSalida()->diff($dato->getHoraEntrada());
-                                $excel->setCellValue('J' . $filas, $intervaloM->format('%H'));
+                                if ($dato->getHoraEntradaTarde()){
+
+                                    $intervaloT = $dato->getHoraSalidaTarde()->diff($dato->getHoraEntradaTarde());
+                                    $suma1 = $intervaloT->format('%H');
+                                    $excel->setCellValue('J' . $filas, $suma1);
+                                }
+                                else{
+
+                                    $excel->setCellValue('J' . $filas, "--------");
+
+                                }
                             }
                             else{
 
                                 $excel->setCellValue('J' . $filas, "--------");
                             }
                         }
-
 
                         $filas++;
 
