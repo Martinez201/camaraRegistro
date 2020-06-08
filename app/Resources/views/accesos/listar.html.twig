@@ -20,7 +20,7 @@
             {% for acceso in paginador.currentPageResults  %}
                 <tr>
                     <td>{{ acceso.empleado }}</td>
-                    <td>{{ acceso.fecha|date('Y-m-d') }}</td>
+                    <td>{{ acceso.fecha|date('d-m-Y') }}</td>
                     <td{% if not acceso.horaEntrada %} class="bg-warning"{% endif %}>{% if not acceso.horaEntrada %}--------{% else %}{{ acceso.horaEntrada|date('H:i:s')}}{% endif %}</td>
                     <td{% if not acceso.horaSalida %} class="bg-warning"{% endif %}>{% if not acceso.horaSalida %}--------{% else %}{{ acceso.horaSalida|date('H:i:s')}}{% endif %}</td>
                     <td{% if not acceso.horaEntradaTarde %} class="bg-warning"{% endif %}>{% if not acceso.horaEntradaTarde %}--------{% else %}{{ acceso.horaEntradaTarde|date('H:i:s')}}{% endif %}</td>
@@ -35,9 +35,6 @@
                                 {% else %}
                                 <td>-----</td>
                     {% endif %}
-
-
-
                     {% endif %}
                 </tr>
             {% endfor %}
