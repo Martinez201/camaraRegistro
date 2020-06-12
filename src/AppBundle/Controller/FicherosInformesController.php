@@ -217,9 +217,28 @@ class FicherosInformesController extends Controller
         $accesos = 0;
         if ($form->isSubmitted() && $form->isValid()) {
 
+
             $fechaInicial = $form->get('fechaPrincipio')->getData();
             $fechaFinal = $form->get('fechaFinal')->getData();
             $buscar = $form->get('empleado')->getData();
+
+            if($fechaInicial > $fechaFinal){
+
+                $this->addFlash('error','La fecha inicial debe de ser menor  que la fecha final');
+                return $this->redirectToRoute('informe_pdf');
+            }
+           if($fechaInicial->diff($fechaFinal)->format('%m') > 3){
+
+               $this->addFlash('error','Error: maximo 3 meses');
+                return  $this->redirectToRoute('informe_pdf');
+            }
+           else{
+
+               if($fechaInicial->diff($fechaFinal)->format('%m') < 1){
+                   $this->addFlash('error','Error: minimo 1 mes');
+                   return  $this->redirectToRoute('informe_pdf');
+               }
+           }
 
             if (!$buscar) {
 
