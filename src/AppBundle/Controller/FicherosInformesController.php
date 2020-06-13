@@ -37,6 +37,27 @@ class FicherosInformesController extends Controller
               $fechaFinal = $form->get('fechaFinal')->getData();
               $buscar = $form->get('empleado')->getData();
 
+              if($fechaInicial > $fechaFinal){
+
+                  $this->addFlash('error','La fecha inicial debe de ser menor  que la fecha final');
+                  return $this->redirectToRoute('informe_excel');
+              }
+
+              if($fechaInicial->diff($fechaFinal)->format('%a') > 90){
+
+                  $this->addFlash('error','Error: maximo 3 meses');
+                  return  $this->redirectToRoute('informe_excel');
+              }
+              else{
+
+                  if($fechaInicial->diff($fechaFinal)->format('%m') < 1){
+
+                      $this->addFlash('error','Error: minimo 1 mes');
+                      return  $this->redirectToRoute('informe_excel');
+                  }
+              }
+
+
               if(!$buscar){
 
                   $accesos = $accesosRepositoy->obtenerAccesosPorFechas($fechaInicial, $fechaFinal);
@@ -227,7 +248,7 @@ class FicherosInformesController extends Controller
                 $this->addFlash('error','La fecha inicial debe de ser menor  que la fecha final');
                 return $this->redirectToRoute('informe_pdf');
             }
-           if($fechaInicial->diff($fechaFinal)->format('%m') > 3){
+           if($fechaInicial->diff($fechaFinal)->format('%a') > 90){
 
                $this->addFlash('error','Error: maximo 3 meses');
                 return  $this->redirectToRoute('informe_pdf');
